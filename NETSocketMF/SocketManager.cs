@@ -6,7 +6,7 @@ using System.Threading;
 using NETSocketMF.Controllers;
 
 namespace NETSocketMF {
-    internal class ServerManager {
+    internal class SocketManager {
 
         public Int16 Port { get { return _port; } }
         public SocketController Server { get { return _controller; } }
@@ -21,7 +21,7 @@ namespace NETSocketMF {
         private Socket _socket;
         private Thread _listenerThread;
 
-        public ServerManager(SocketController controller, Int16 port) {
+        public SocketManager(SocketController controller, Int16 port) {
             _controller = controller;
             _port = port;
         }
@@ -35,7 +35,7 @@ namespace NETSocketMF {
 
         public void Disconnect() {
             if (IsAlive) {
-                foreach (ServerHandle handle in _handles) {
+                foreach (SocketHandle handle in _handles) {
                     handle.Die();
                 }
                 _socket.Close();
@@ -45,7 +45,7 @@ namespace NETSocketMF {
 
         public Int32 DisconnectIP(IPAddress ipaddress) {
             Int32 disconnected = 0;
-            foreach (ServerHandle handle in _handles) {
+            foreach (SocketHandle handle in _handles) {
                 if (handle.EndPoint.Address.Equals(ipaddress)) {
                     handle.Die();
                     disconnected++;
@@ -65,7 +65,7 @@ namespace NETSocketMF {
                 } catch (Exception e) {
                     continue;
                 }
-                var handle = new ServerHandle(_controller, client);
+                var handle = new SocketHandle(_controller, client);
                 handle.OnDeath += e => _handles.Remove(e);
                 handle.Start();
                 _handles.Add(handle);

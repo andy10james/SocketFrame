@@ -7,9 +7,9 @@ using NETSocketMF.Commands;
 using NETSocketMF.Controllers;
 
 namespace NETSocketMF {
-    internal class ServerHandle {
+    internal class SocketHandle {
 
-        public delegate void OnDeathEvent(ServerHandle handle);
+        public delegate void OnDeathEvent(SocketHandle handle);
         public event OnDeathEvent OnDeath;
         public IPEndPoint EndPoint;
 
@@ -17,7 +17,7 @@ namespace NETSocketMF {
         private readonly Socket _client;
         private Boolean _ended = false;
 
-        public ServerHandle(SocketController socketController, Socket client) {
+        public SocketHandle(SocketController socketController, Socket client) {
             _socketController = socketController;
             _client = client;
             EndPoint = client.RemoteEndPoint as IPEndPoint;

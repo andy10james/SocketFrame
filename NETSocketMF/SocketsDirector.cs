@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Net;
+using System.Reflection;
 using NETSocketMF.Controllers;
 
 namespace NETSocketMF {
@@ -10,6 +11,10 @@ namespace NETSocketMF {
 
         static SocketsDirector() {
             Servers = new Hashtable();
+        }
+
+        public static SocketManager AddSocket(Int16 port) {
+            Assembly.
         }
 
         public static SocketManager AddSocket(Int16 port, ArrayList types) {
