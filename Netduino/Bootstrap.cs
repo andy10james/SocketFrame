@@ -1,15 +1,7 @@
-﻿using System;
-using System.Net;
-using System.Net.Sockets;
-using System.Threading;
-using Microsoft.SPOT;
-using Microsoft.SPOT.Hardware;
+﻿using System.Threading;
 using Netduino.Controllers;
 using Netduino.Events;
-using Netduino.Output;
-using Netduino.Servers;
-using SecretLabs.NETMF.Hardware;
-using SecretLabs.NETMF.Hardware.Netduino;
+using NETSocketMF;
 
 namespace Netduino {
     public class Bootstrap {
@@ -17,7 +9,10 @@ namespace Netduino {
         public static void Main() {
             Heartbeat.Start();
             Sw1Events.OnPush(Switch);
-            ServersDirector.AddServer(2004, new QueryController()).Connect();
+            var s = new NETSocket();
+            s.Bind(typeof(QueryController)).To(2004, 2005);
+            s.Bind(typeof(QueryController)).To(2001).Between(2009, 2011);
+            s.Bind(typeof(QueryController)).To(2004, 2005);
             Thread.Sleep(Timeout.Infinite);
         }
 

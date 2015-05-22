@@ -49,5 +49,10 @@
     <Reference Include="SecretLabs.NETMF.Hardware.Netduino" />
     <Reference Include="System" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\NETSocketMF\SocketFrame.Micro.csproj">
+      <Project>{F169860A-4E4E-4749-BB8A-27F9AD6E899D}</Project>
+      <Name>SocketFrame.Micro</Name>
+    </ProjectReference>
+  </ItemGroup>
 </Project>

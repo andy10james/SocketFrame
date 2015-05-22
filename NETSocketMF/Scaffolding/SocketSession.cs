@@ -3,24 +3,23 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
-using NETSocketMF.Commands;
-using NETSocketMF.Controllers;
+using SocketFrame.Micro.Model;
 
-namespace NETSocketMF {
-    internal class SocketHandle {
+namespace SocketFrame.Micro.Scaffolding {
+    internal class SocketSession {
 
-        public delegate void OnDeathEvent(SocketHandle handle);
+        public delegate void OnDeathEvent(SocketSession handle);
         public event OnDeathEvent OnDeath;
-        public IPEndPoint EndPoint;
+        public IPEndPoint RemoteEndPoint;
+        public IPEndPoint LocalEndPoint;
 
-        private readonly Type _socketController;
         private readonly Socket _client;
         private Boolean _ended = false;
 
-        public SocketHandle(SocketController socketController, Socket client) {
-            _socketController = socketController;
+        public SocketSession(Socket client) {
             _client = client;
-            EndPoint = client.RemoteEndPoint as IPEndPoint;
+            RemoteEndPoint = client.RemoteEndPoint as IPEndPoint;
+            LocalEndPoint = client.LocalEndPoint as IPEndPoint;
         }
 
         public void Start() {
@@ -29,8 +28,8 @@ namespace NETSocketMF {
         }
 
         private void Handle() {
-            _socketController.GetConstructor(new Type[0]).Invoke(new Object[0]);
-            if (EndPoint == null) {
+            
+            if (RemoteEndPoint == null) {
                 _client.Close();
                 return;
             }
@@ -44,7 +43,7 @@ namespace NETSocketMF {
                     break; 
                 }
                 var message = new string(Encoding.UTF8.GetChars(messageBytes));
-                var command = CommandPattern.Create(message);
+                var command = SocketCommand.Create(message);
                 _socketController.InvokeAction(command, _client);
             }
 

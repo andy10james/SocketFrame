@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30501.0
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Netduino", "Netduino\Netduino.csproj", "{C4CE924F-06F3-431A-9308-B8250A47DA72}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NETSocketMF", "NETSocketMF\NETSocketMF.csproj", "{F169860A-4E4E-4749-BB8A-27F9AD6E899D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocketFrame.Micro", "NETSocketMF\SocketFrame.Micro.csproj", "{F169860A-4E4E-4749-BB8A-27F9AD6E899D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

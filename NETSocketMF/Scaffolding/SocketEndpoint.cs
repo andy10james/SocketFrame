@@ -3,26 +3,22 @@ using System.Collections;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
-using NETSocketMF.Controllers;
 
-namespace NETSocketMF {
-    internal class SocketManager {
+namespace SocketFrame.Micro.Scaffolding {
+    internal class SocketEndpoint {
 
-        public Int16 Port { get { return _port; } }
-        public SocketController Server { get { return _controller; } }
+        public UInt16 Port { get { return _port; } }
         public ArrayList Handles { get { return _handles; } }
         public Boolean IsAlive {
             get { return (_listenerThread != null && _listenerThread.IsAlive); }
         }
 
-        private readonly Int16 _port;
-        private readonly SocketController _controller;
+        private readonly UInt16 _port;
         private readonly ArrayList _handles = new ArrayList();
         private Socket _socket;
         private Thread _listenerThread;
 
-        public SocketManager(SocketController controller, Int16 port) {
-            _controller = controller;
+        public SocketEndpoint(UInt16 port) {
             _port = port;
         }
 
@@ -35,7 +31,7 @@ namespace NETSocketMF {
 
         public void Disconnect() {
             if (IsAlive) {
-                foreach (SocketHandle handle in _handles) {
+                foreach (SocketSession handle in _handles) {
                     handle.Die();
                 }
                 _socket.Close();
@@ -45,8 +41,8 @@ namespace NETSocketMF {
 
         public Int32 DisconnectIP(IPAddress ipaddress) {
             Int32 disconnected = 0;
-            foreach (SocketHandle handle in _handles) {
-                if (handle.EndPoint.Address.Equals(ipaddress)) {
+            foreach (SocketSession handle in _handles) {
+                if (handle.RemoteEndPoint.Address.Equals(ipaddress)) {
                     handle.Die();
                     disconnected++;
                 }
@@ -65,7 +61,7 @@ namespace NETSocketMF {
                 } catch (Exception e) {
                     continue;
                 }
-                var handle = new SocketHandle(_controller, client);
+                var handle = new SocketSession(client);
                 handle.OnDeath += e => _handles.Remove(e);
                 handle.Start();
                 _handles.Add(handle);

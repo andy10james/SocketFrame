@@ -28,3 +28,7 @@ d:\documents\visual studio 2013\Projects\Netduino\Netduino\obj\Debug\le\Netduino
 d:\documents\visual studio 2013\Projects\Netduino\Netduino\obj\Debug\le\Netduino.pdbx
 d:\documents\visual studio 2013\Projects\Netduino\Netduino\obj\Debug\Netduino.exe
 d:\documents\visual studio 2013\Projects\Netduino\Netduino\obj\Debug\Netduino.pdb
+D:\Documents\NETSocketMF\Netduino\obj\Debug\Netduino.csprojResolveAssemblyReference.cache
+D:\Documents\NETSocketMF\Netduino\obj\Debug\TinyCLR_DebugReferences.cache
+D:\Documents\NETSocketMF\Netduino\obj\Debug\Netduino.exe
+D:\Documents\NETSocketMF\Netduino\obj\Debug\Netduino.pdb

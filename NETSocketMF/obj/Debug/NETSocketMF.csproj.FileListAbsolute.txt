@@ -1,0 +1,2 @@
+D:\Documents\NETSocketMF\NETSocketMF\obj\Debug\NETSocketMF.csprojResolveAssemblyReference.cache
+D:\Documents\NETSocketMF\NETSocketMF\obj\Debug\TinyCLR_DebugReferences.cache

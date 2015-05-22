@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Net.Sockets;
 using System.Text;
-using 
 
 namespace Netduino.Controllers {
-    internal class QueryController : SocketController {
+    internal class QueryController : ISocketController {
 
         public QueryController() : base() {
             ActionDictionary["HELLO"] = (ActionDelegate) CheckHashAction;
-            RemoteActionDictionary["HELLO"] =  (RemoteActionDelegate) CheckHashAction;
         }
 
         public override String GetName() {
