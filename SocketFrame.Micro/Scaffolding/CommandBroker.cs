@@ -1,6 +1,6 @@
-using SocketFrame.Micro.Scaffolding.Interfaces;
+using Kana.Ikimi.SocketFrame.Micro.Scaffolding.Interfaces;
 
-namespace SocketFrame.Micro.Scaffolding {
+namespace Kana.Ikimi.SocketFrame.Micro.Scaffolding {
     internal class CommandBroker : ICommandBroker {
 
         public void Handle(string command) {

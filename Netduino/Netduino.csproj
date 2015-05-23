@@ -50,7 +50,7 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\NETSocketMF\SocketFrame.Micro.csproj">
+    <ProjectReference Include="..\SocketFrame.Micro\SocketFrame.Micro.csproj">
       <Project>{F169860A-4E4E-4749-BB8A-27F9AD6E899D}</Project>
       <Name>SocketFrame.Micro</Name>
     </ProjectReference>

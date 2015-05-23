@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace SocketFrame.Micro.Model {
+namespace Kana.Ikimi.SocketFrame.Micro.Model {
 
     public class SocketCommand {
 
@@ -9,9 +9,9 @@ namespace SocketFrame.Micro.Model {
         private String[] _parameters;
         private String _original;
 
-        public String Command { get { return _command; } }
-        public String[] Parameters { get { return _parameters.Clone() as String[]; } }
-        public String Original { get { return _original; } }
+        public String Command { get { return this._command; } }
+        public String[] Parameters { get { return this._parameters.Clone() as String[]; } }
+        public String Original { get { return this._original; } }
 
         public static SocketCommand Create(String commandString) {
             String[] commandSplit = commandString.Split(' ');
@@ -27,8 +27,8 @@ namespace SocketFrame.Micro.Model {
 
         public override String ToString() {
             var output = new StringBuilder();
-            output.Append(_command);
-            foreach (String param in _parameters) {
+            output.Append(this._command);
+            foreach (String param in this._parameters) {
                 output.Append(" ");
                 output.Append(param);
             }

@@ -3,9 +3,9 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
-using SocketFrame.Micro.Model;
+using Kana.Ikimi.SocketFrame.Micro.Model;
 
-namespace SocketFrame.Micro.Scaffolding {
+namespace Kana.Ikimi.SocketFrame.Micro.Scaffolding {
     internal class SocketSession {
 
         public delegate void OnDeathEvent(SocketSession handle);
@@ -17,44 +17,44 @@ namespace SocketFrame.Micro.Scaffolding {
         private Boolean _ended = false;
 
         public SocketSession(Socket client) {
-            _client = client;
-            RemoteEndPoint = client.RemoteEndPoint as IPEndPoint;
-            LocalEndPoint = client.LocalEndPoint as IPEndPoint;
+            this._client = client;
+            this.RemoteEndPoint = client.RemoteEndPoint as IPEndPoint;
+            this.LocalEndPoint = client.LocalEndPoint as IPEndPoint;
         }
 
         public void Start() {
-            var handler = new Thread(Handle);
+            var handler = new Thread(this.Handle);
             handler.Start();
         }
 
         private void Handle() {
             
-            if (RemoteEndPoint == null) {
-                _client.Close();
+            if (this.RemoteEndPoint == null) {
+                this._client.Close();
                 return;
             }
             
-            while (!_ended) {
+            while (!this._ended) {
                 var messageBytes = new Byte[1024];
                 var bytesRead = 0;
                 try {
-                    bytesRead = _client.Receive(messageBytes, 0, messageBytes.Length, SocketFlags.None);
+                    bytesRead = this._client.Receive(messageBytes, 0, messageBytes.Length, SocketFlags.None);
                 } catch {
                     break; 
                 }
                 var message = new string(Encoding.UTF8.GetChars(messageBytes));
                 var command = SocketCommand.Create(message);
-                _socketController.InvokeAction(command, _client);
+                _socketController.InvokeAction(command, this._client);
             }
 
-            _client.Close();
-            OnDeath.Invoke(this);
+            this._client.Close();
+            this.OnDeath.Invoke(this);
 
         }
 
         public void Die() {
-            _ended = true;
-            _client.Close();
+            this._ended = true;
+            this._client.Close();
         }
 
     }
