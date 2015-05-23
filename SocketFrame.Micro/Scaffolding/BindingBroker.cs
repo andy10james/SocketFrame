@@ -15,9 +15,20 @@ namespace Kana.Ikimi.SocketFrame.Micro.Scaffolding {
         }
 
         public SocketBinding Bind(Type controller) {
+            SocketBinding found = this.Find(controller);
+            if (found != null) return found;
             SocketBinding binding = new SocketBinding(controller);
             this._bindings.Add(binding);
             return binding;
+        }
+        
+        public SocketBinding Find(Type controller) {
+            foreach (object bindobject in _bindings) {
+                SocketBinding binding = mapobject as SocketBinding;
+                if (binding == null) continue;
+                if (binding.Type = type) return binding;
+            }
+            return null;
         }
 
         internal IEnumerable GetControllersFor(UInt16 port) {

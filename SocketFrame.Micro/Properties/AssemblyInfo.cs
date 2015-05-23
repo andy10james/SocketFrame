@@ -5,14 +5,14 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("NETSocketMF")]
-[assembly: AssemblyDescription("")]
-[assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("NETSocketMF")]
+[assembly: AssemblyTitle("SocketFrame.Micro")]
+[assembly: AssemblyDescription("SocketFrame; a socket server library. SocketFrame.Micro; built for .NET Micro Framework")]
+[assembly: AssemblyConfiguration("SocketFrame.Micro")]
+[assembly: AssemblyCompany("kana.ikimi.co")]
+[assembly: AssemblyProduct("SocketFrame")]
 [assembly: AssemblyCopyright("Copyright ©  2014")]
 [assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("")]
+[assembly: AssemblyCulture("en-GB")]
 
 // Version information for an assembly consists of the following four values:
 //

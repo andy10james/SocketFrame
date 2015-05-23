@@ -6,7 +6,6 @@ using SecretLabs.NETMF.Hardware;
 using SecretLabs.NETMF.Hardware.Netduino;
 using Netduino.Output;
 
-
 namespace Netduino {
     internal static class Heartbeat {
 

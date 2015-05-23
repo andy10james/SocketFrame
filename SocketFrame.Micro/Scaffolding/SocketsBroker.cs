@@ -6,7 +6,12 @@ using Kana.Ikimi.SocketFrame.Micro.Scaffolding.Interfaces;
 namespace Kana.Ikimi.SocketFrame.Micro.Scaffolding {
     internal class SocketsBroker : ISocketsBroker {
 
+        private static readonly SocketsBroker _instance = new SocketsBroker();
         private readonly Hashtable _endpoints;
+
+        public static SocketsBroker Instance {
+            get { return _instance; }
+        }
 
         static SocketsBroker() {
             _endpoints = new Hashtable();
