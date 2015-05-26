@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net.Sockets;
 using System.Text;
+using Kana.Ikimi.SocketFrame.Micro.Scaffolding.Interfaces;
 
 namespace Netduino.Controllers {
     internal class QueryController : ISocketController {
@@ -18,7 +19,7 @@ namespace Netduino.Controllers {
         }
 
         private Boolean CheckHashAction(String[] parameters, Socket client) {
-            client.Send(Encoding.UTF8.GetBytes(messageBytes))
+            client.Send(Encoding.UTF8.GetBytes(messageBytes));
             return true;
         }
 

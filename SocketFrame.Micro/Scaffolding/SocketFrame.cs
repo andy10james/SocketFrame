@@ -5,18 +5,27 @@ namespace Kana.Ikimi.SocketFrame.Micro.Scaffolding {
     public class SocketFrame : ISocketFrame {
 
         private static readonly SocketFrame _instance = new SocketFrame();
+        private readonly IStructureBroker _structureBroker;
 
         public static SocketFrame Instance {
-            get { return _instance; }
+            get { return SocketFrame._instance; }
         }
 
-        public SocketFrame Binding(ConfigureBindings config) {
+        public SocketFrame() {
+            this._structureBroker = new StructureBroker();
+        }
+
+        public SocketFrame(IStructureBroker structureBroker) {
+            this._structureBroker = structureBroker;
+        }
+
+        public SocketFrame Configure(ConfigureBindings config) {
             config(new BindingBroker());
             return this;
         }
         
-        public SocketFrame Structure(ConfigureStructure config) {
-            config(new StructureBroker())
+        public SocketFrame Configure(ConfigureStructure config) {
+            config(this._structureBroker);
             return this;
         }
         
@@ -26,17 +35,18 @@ namespace Kana.Ikimi.SocketFrame.Micro.Scaffolding {
         }
 
         public SocketFrame Configure(ConfigureAll config) {
-            config(new ConfigurationBroker(), new BindingBroker(), new StructureBroker());
+            config(new ConfigurationBroker(), new BindingBroker(), this._structureBroker);
+            return this;
         }
 
         public SocketFrame Init(ConfigureBindings config) {
-            this.Binding(config);
+            this.Configure(config);
             return this.Init();
         }
         
         public SocketFrame Init(ConfigureStructure config) {
-            this.Structure(config);
-            return this.Init()
+            this.Configure(config);
+            return this.Init();
         }
         
         public SocketFrame Init(Configure config) {
@@ -44,7 +54,14 @@ namespace Kana.Ikimi.SocketFrame.Micro.Scaffolding {
             return this.Init();
         }
 
+        public SocketFrame Init(ConfigureAll config) {
+            this.Configure(config);
+            return this.Init();
+        }
+
         public SocketFrame Init() {
+            this._structureBroker.CheckForCircularDependency();
+            this._structureBroker.CheckForUninstanciables();
             // Start up
             return this;
         }

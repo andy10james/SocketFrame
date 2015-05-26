@@ -3,18 +3,19 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
-using Kana.Ikimi.SocketFrame.Micro.Model;
+using Kana.Ikimi.SocketFrame.Micro.Delegates;
+using Kana.Ikimi.SocketFrame.Micro.Scaffolding.Interfaces;
 
 namespace Kana.Ikimi.SocketFrame.Micro.Scaffolding {
-    internal class SocketSession {
 
-        public delegate void OnDeathEvent(SocketSession handle);
-        public event OnDeathEvent OnDeath;
-        public IPEndPoint RemoteEndPoint;
-        public IPEndPoint LocalEndPoint;
+    internal class SocketSession : ISocketSession {
 
+        private event OnSocketSessionDeath _onDeath;
         private readonly Socket _client;
-        private Boolean _ended = false;
+        private Boolean _ended;
+
+        public IPEndPoint LocalEndPoint;
+        public IPEndPoint RemoteEndPoint;
 
         public SocketSession(Socket client) {
             this._client = client;
@@ -23,39 +24,43 @@ namespace Kana.Ikimi.SocketFrame.Micro.Scaffolding {
         }
 
         public void Start() {
-            var handler = new Thread(this.Handle);
+            Thread handler = new Thread(this.Handle);
             handler.Start();
         }
 
-        private void Handle() {
-            
-            if (this.RemoteEndPoint == null) {
-                this._client.Close();
-                return;
-            }
-            
-            while (!this._ended) {
-                var messageBytes = new Byte[1024];
-                var bytesRead = 0;
-                try {
-                    bytesRead = this._client.Receive(messageBytes, 0, messageBytes.Length, SocketFlags.None);
-                } catch {
-                    break; 
-                }
-                var message = new string(Encoding.UTF8.GetChars(messageBytes));
-                var command = SocketCommand.Create(message);
-                _socketController.InvokeAction(command, this._client);
-            }
+        public void Send(String message) {
+            this._client.Send(Encoding.UTF8.GetBytes(message));
+        }
 
-            this._client.Close();
-            this.OnDeath.Invoke(this);
-
+        public void OnDeath(OnSocketSessionDeath listener) {
+            this._onDeath += listener;
         }
 
         public void Die() {
             this._ended = true;
             this._client.Close();
+            this._onDeath.Invoke(this);
+        }
+
+        private void Handle() {
+            if (this.RemoteEndPoint == null) {
+                this._client.Close();
+                return;
+            }
+            while (!this._ended) {
+                Byte[] messageBytes = new Byte[1024];
+                Int32 bytesRead = 0;
+                try {
+                    bytesRead = this._client.Receive(messageBytes, 0, messageBytes.Length, SocketFlags.None);
+                } catch {
+                    break;
+                }
+                String message = new string(Encoding.UTF8.GetChars(messageBytes));
+            }
+            this._client.Close();
+            this._onDeath.Invoke(this);
         }
 
     }
+
 }

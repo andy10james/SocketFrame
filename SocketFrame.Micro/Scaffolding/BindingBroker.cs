@@ -5,7 +5,7 @@ using Kana.Ikimi.SocketFrame.Micro.Scaffolding.Interfaces;
 
 namespace Kana.Ikimi.SocketFrame.Micro.Scaffolding {
 
-    public class BindingBroker {
+    public class BindingBroker : IBindingBroker {
 
         private static readonly BindingBroker _instance = new BindingBroker();
         private readonly ArrayList _bindings;
@@ -24,14 +24,14 @@ namespace Kana.Ikimi.SocketFrame.Micro.Scaffolding {
         
         public SocketBinding Find(Type controller) {
             foreach (object bindobject in _bindings) {
-                SocketBinding binding = mapobject as SocketBinding;
+                SocketBinding binding = bindobject as SocketBinding;
                 if (binding == null) continue;
-                if (binding.Type = type) return binding;
+                if (binding.Controller == controller) return binding;
             }
             return null;
         }
 
-        internal IEnumerable GetControllersFor(UInt16 port) {
+        public IEnumerable GetControllersFor(UInt16 port) {
             foreach (object bindobject in this._bindings) {
                 SocketBinding binding = bindobject as SocketBinding;
                 if (binding == null) continue;
@@ -40,7 +40,7 @@ namespace Kana.Ikimi.SocketFrame.Micro.Scaffolding {
             }
         }
 
-        internal IEnumerable GetPortsFor(Type controller) {
+        public IEnumerable GetPortsFor(Type controller) {
             ArrayList portsYielded = new ArrayList();
             foreach (object bindobject in this._bindings) {
                 SocketBinding binding = bindobject as SocketBinding;
@@ -61,7 +61,7 @@ namespace Kana.Ikimi.SocketFrame.Micro.Scaffolding {
             }
         }
 
-        internal IEnumerable GetPortsFor(ISocketController controller) {
+        public IEnumerable GetPortsFor(ISocketController controller) {
             return this.GetPortsFor(controller.GetType());
         }
 

@@ -1,13 +1,16 @@
 using System;
 
-public interface IConfigurationBroker {
-	
-	public void SetBacklog(Int16 backlog);
-	public void SetSessionTimeout(Int64 timeout);
-	public void SetMaxCommandLength(Int64 maxLength);
-	
-	public Int16 GetBacklog();
-	public Int64 GetSessionTimeout();
-	public Int64 GetMaxCommandLength();
-	
+namespace Kana.Ikimi.SocketFrame.Micro.Scaffolding.Interfaces {
+
+    public interface IConfigurationBroker {
+
+        void SetBacklog(Int16 backlog);
+        void SetSessionTimeout(Int64 timeout);
+        void SetMaxCommandLength(Int64 maxLength);
+        Int16 GetBacklog();
+        Int64 GetSessionTimeout();
+        Int64 GetMaxCommandLength();
+
+    }
+
 }

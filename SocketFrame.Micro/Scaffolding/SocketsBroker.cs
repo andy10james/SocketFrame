@@ -13,8 +13,8 @@ namespace Kana.Ikimi.SocketFrame.Micro.Scaffolding {
             get { return _instance; }
         }
 
-        static SocketsBroker() {
-            _endpoints = new Hashtable();
+        public SocketsBroker() {
+            this._endpoints = new Hashtable();
         }
 
         public SocketEndpoint AddSocket(UInt16 port) {

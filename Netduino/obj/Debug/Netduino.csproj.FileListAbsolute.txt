@@ -32,3 +32,4 @@ D:\Documents\NETSocketMF\Netduino\obj\Debug\Netduino.csprojResolveAssemblyRefere
 D:\Documents\NETSocketMF\Netduino\obj\Debug\TinyCLR_DebugReferences.cache
 D:\Documents\NETSocketMF\Netduino\obj\Debug\Netduino.exe
 D:\Documents\NETSocketMF\Netduino\obj\Debug\Netduino.pdb
+F:\Development\Live\SocketFrame\Netduino\obj\Debug\TinyCLR_DebugReferences.cache

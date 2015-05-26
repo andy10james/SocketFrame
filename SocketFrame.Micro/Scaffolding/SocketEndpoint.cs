@@ -72,7 +72,7 @@ namespace Kana.Ikimi.SocketFrame.Micro.Scaffolding {
                     continue;
                 }
                 SocketSession handle = new SocketSession(client);
-                handle.OnDeath += e => this._handles.Remove(e);
+                handle.OnDeath(e => this._handles.Remove(e));
                 handle.Start();
                 this._handles.Add(handle);
             }

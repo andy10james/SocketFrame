@@ -2,7 +2,7 @@
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <AssemblyName>SocketFrame.Micro</AssemblyName>
-    <OutputType>Exe</OutputType>
+    <OutputType>Library</OutputType>
     <RootNamespace>Kana.Ikimi.SocketFrame.Micro</RootNamespace>
     <ProjectTypeGuids>{b69e3092-b931-443c-abe7-7e7b65f2a37f};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <ProductVersion>9.0.21022</ProductVersion>
@@ -30,17 +30,33 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <Import Project="$(NetMfTargetsBaseDir)$(TargetFrameworkVersion)\CSharp.Targets" />
   <ItemGroup>
     <Compile Include="Delegates\Configure.cs" />
+    <Compile Include="Delegates\ConfigureAll.cs" />
+    <Compile Include="Delegates\ConfigureBindings.cs" />
+    <Compile Include="Delegates\ConfigureStructure.cs" />
+    <Compile Include="Delegates\OnSocketSessionDeath.cs" />
+    <Compile Include="Exceptions\UninstanciableStructureException.cs" />
+    <Compile Include="Exceptions\CirclularDependancyStructureException.cs" />
+    <Compile Include="Exceptions\InvalidConfigurationSubTypeException.cs" />
+    <Compile Include="Model\Interfaces\IStructureMap.cs" />
+    <Compile Include="Model\StructureMap.cs" />
     <Compile Include="Scaffolding\BindingBroker.cs" />
     <Compile Include="Scaffolding\CommandBroker.cs" />
     <Compile Include="Model\SocketCommand.cs" />
     <Compile Include="Exceptions\InvalidSocketControllerException.cs" />
     <Compile Include="Scaffolding\ConfigurationBroker.cs" />
+    <Compile Include="Scaffolding\Interfaces\IBindingBroker.cs" />
+    <Compile Include="Scaffolding\Interfaces\IConfigurationBroker.cs" />
     <Compile Include="Scaffolding\Interfaces\ISocketEndpoint.cs" />
     <Compile Include="Scaffolding\Interfaces\ISocketFrame.cs" />
     <Compile Include="Scaffolding\Interfaces\ISocketsBroker.cs" />
+    <Compile Include="Scaffolding\Interfaces\ISocketSession.cs" />
+    <Compile Include="Scaffolding\Interfaces\IStructureBroker.cs" />
     <Compile Include="Scaffolding\SocketFrame.cs" />
     <Compile Include="Scaffolding\Interfaces\ICommandBroker.cs" />
     <Compile Include="Scaffolding\Interfaces\IControllerInstanciator.cs" />
@@ -50,6 +66,7 @@
     <Compile Include="Scaffolding\SocketSession.cs" />
     <Compile Include="Scaffolding\SocketEndpoint.cs" />
     <Compile Include="Scaffolding\SocketsBroker.cs" />
+    <Compile Include="Scaffolding\StructureBroker.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.SPOT.Hardware" />
