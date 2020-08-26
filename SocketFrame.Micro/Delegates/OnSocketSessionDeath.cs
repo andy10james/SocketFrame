@@ -3,6 +3,6 @@ using Kana.Ikimi.SocketFrame.Micro.Scaffolding.Interfaces;
 
 namespace Kana.Ikimi.SocketFrame.Micro.Delegates {
 
-    public delegate void Configure(IConfigurationBroker configurationBroker);
+    public delegate void OnSocketSessionDeath(ISocketSession handle);
 
 }
